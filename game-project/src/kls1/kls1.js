@@ -3,18 +3,12 @@ class PuzzleGame {
         this.currentLevel = 1;
         this.stories = [
             "🌳Anak Laki-laki yang sedang memegang piala🎈",
-            "🐱 Lina yang sedang marah✨",
-            "❓ Apa yang sedang dilakukan anak ini?"  // New story for quiz
+            "🐱 Lina yang sedang marah✨"
         ];
         this.completedPuzzles = 0;
-        this.quizAnswers = [
-            "bermain bola",
-            "berenang",
-            "bermain sepeda"
-        ];
-        this.correctAnswer = "bermain sepeda"; // The correct answer
-        
         this.promoteBtn = document.getElementById('promoteBtn');
+        this.feedbackOverlay = document.getElementById('feedbackOverlay');
+        this.feedbackImage = document.getElementById('feedbackImage');
         
         this.init();
     }
@@ -34,34 +28,6 @@ class PuzzleGame {
         // Update story text
         const storyText = this.storyBoard.querySelector('.story-text');
         storyText.textContent = this.stories[this.currentLevel - 1];
-
-        if (this.currentLevel === 3) {
-            // Setup quiz interface
-            this.sourcePieces.innerHTML = ''; // Clear puzzle pieces
-            this.targetBoard.innerHTML = ''; // Clear target board
-            
-            // Create quiz image
-            const quizImage = document.createElement('img');
-            quizImage.src = '../assets/img/pict17.png';
-            quizImage.classList.add('quiz-image');
-            this.sourcePieces.appendChild(quizImage);
-            
-            // Create answer buttons
-            const answerContainer = document.createElement('div');
-            answerContainer.classList.add('answer-container');
-            
-            this.quizAnswers.forEach(answer => {
-                const button = document.createElement('button');
-                button.textContent = answer;
-                button.classList.add('answer-button');
-                button.addEventListener('click', () => this.checkQuizAnswer(answer));
-                answerContainer.appendChild(button);
-            });
-            
-            this.targetBoard.appendChild(answerContainer);
-            this.checkBtn.style.display = 'none'; // Hide check button for quiz
-            return;
-        }
 
         // Clear puzzle areas
         this.sourcePieces.innerHTML = '';
@@ -136,28 +102,25 @@ class PuzzleGame {
         });
     }
 
-    checkQuizAnswer(selectedAnswer) {
-        if (selectedAnswer === this.correctAnswer) {
-            this.completedPuzzles++;
-            alert('🎉 HOREE! KAMU BERHASIL! 🎉\n\nJawaban kamu benar!\n\n✨ SELAMAT YA! ✨');
-            
-            // Only show NAIK KELAS button after completing the quiz (level 3)
-            this.nextBtn.style.display = 'inline-block';
-            this.nextBtn.textContent = 'NAIK KELAS';
-            localStorage.setItem('kelas2Unlocked', 'true');
-            this.nextBtn.addEventListener('click', () => {
+    showFeedback(isCorrect) {
+        this.feedbackImage.src = isCorrect ? '../assets/img/benar.png' : '../assets/img/salah.png';
+        this.feedbackOverlay.style.display = 'flex';
+        
+        setTimeout(() => {
+            this.feedbackOverlay.style.display = 'none';
+            // Always progress after level 1, only check correctness for level 2
+            if (this.currentLevel === 1) {
+                this.nextLevel();
+            } else if (this.currentLevel === 2 && isCorrect) {
+                localStorage.setItem('kelas2Unlocked', 'true');
                 window.location.href = '../kls2/kls2.html';
-            });
-        } else {
-            alert('🤔 Ups! Jawaban masih kurang tepat...\nAyo coba lagi! 💪');
-        }
+            } else if (this.currentLevel === 2 && !isCorrect) {
+                this.setupLevel(); // Reset level 2 if incorrect
+            }
+        }, 2000); // Hide feedback after 2 seconds
     }
 
     checkSolution() {
-        if (this.currentLevel === 3) {
-            return; // Skip normal puzzle checking for quiz level
-        }
-
         const dropZones = this.targetBoard.querySelectorAll('.drop-zone');
         let correct = true;
 
@@ -167,26 +130,12 @@ class PuzzleGame {
             }
         });
 
-        if (correct) {
-            this.completedPuzzles++;
-            alert('🎉 HOREE! KAMU BERHASIL! 🎉\n\nWah, kamu hebat sekali! Puzzle-nya sudah tersusun dengan sempurna!\n\n✨ SELAMAT YA! ✨');
-            
-            // Always show LANJUT button after completing levels 1 and 2
-            this.nextBtn.style.display = 'inline-block';
-            this.nextBtn.textContent = 'LANJUT';
-            
-        } else {
-            alert('🤔 Ups! Puzzle-nya masih belum pas nih...\nAyo coba lagi! 💪');
-            if (this.currentLevel === 2) {
-                this.setupLevel(); // Reset puzzle pieces for level 2
-            }
-        }
+        this.showFeedback(correct);
     }
 
     nextLevel() {
-        if (this.currentLevel < 3) { // Updated to include level 3
+        if (this.currentLevel < 2) {
             this.currentLevel++;
-            this.nextBtn.style.display = 'none';
             this.setupLevel();
         }
     }

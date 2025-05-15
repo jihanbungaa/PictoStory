@@ -269,7 +269,7 @@ button:hover {
 .answer-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #f38e30;
     color: white;
     border: none;
     border-radius: 5px;
@@ -279,7 +279,25 @@ button:hover {
 }
 
 .answer-button:hover {
-    background-color: #45a049;
+    background-color: #e9b98f;
+}
+
+.feedback-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.feedback-image {
+    max-width: 300px;
+    max-height: 300px;
 }
 
 /* Animation keyframes */
