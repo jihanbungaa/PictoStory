@@ -1,0 +1,160 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: #fffbeb;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.form-box {
+    background: #fff7d6;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 4px solid #ffd700;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+h2 {
+    color: #ff6b6b;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 0 #ffe5e5;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.icon {
+    font-size: 1.4em;
+    margin-right: 8px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+    background: #ff9a3c;
+    color: white;
+    font-size: 1.2em;
+    font-family: 'Comic Sans MS', cursive;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    background: #ff8227;
+}
+
+.character {
+    width: 100px;
+    height: 100px;
+    background: url('../assets/img/karakter.png') center/contain no-repeat;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    animation: wave 2s infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+.instruction-text {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 2rem auto;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease;
+}
+
+h1 {
+    color: #FF6B6B;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.message {
+    font-size: 1.8rem;
+    line-height: 2.5;
+    color: #333;
+    margin-bottom: 2rem;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.next-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Comic Sans MS', cursive;
+    transition: transform 0.3s ease;
+    animation: bounce 2s infinite;
+}
+
+.next-button:hover {
+    transform: scale(1.05);
+    background-color: #f14f1d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .form-box {
+        padding: 20px;
+    }
+    
+    .character {
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        right: -40px;
+    }
+}

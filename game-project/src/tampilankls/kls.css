@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('../assets/img/kelas.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.title {
+    color: #FFD700;
+    font-size: 3em;
+    text-shadow: 3px 3px 0 #B8860B;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.level-item {
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.level-item.locked {
+    opacity: 0.7;
+    cursor: not-allowed;
+    filter: grayscale(50%);
+}
+
+.level-item:not(.locked):hover {
+    transform: scale(1.05);
+}
+
+.level-item img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.level-label {
+    font-size: 1.5em;
+    color: #8B4513;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.locked {
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.lock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    z-index: 2;
+}
+
+.unlocked-animation {
+    animation: unlock 0.5s ease;
+}
+
+@keyframes unlock {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.back-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    background-color: #FF5252;
+}
