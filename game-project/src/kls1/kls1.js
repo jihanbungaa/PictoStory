@@ -9,6 +9,10 @@ class PuzzleGame {
         this.promoteBtn = document.getElementById('promoteBtn');
         this.feedbackOverlay = document.getElementById('feedbackOverlay');
         this.feedbackImage = document.getElementById('feedbackImage');
+        this.scoreOverlay = document.getElementById('scoreOverlay');
+        this.star1 = document.getElementById('star1');
+        this.star2 = document.getElementById('star2');
+        this.correctAnswers = 0;
         
         this.init();
     }
@@ -71,6 +75,7 @@ class PuzzleGame {
     }
 
     setupEventListeners() {
+        // Remove duplicate promoteBtn listener
         this.sourcePieces.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', e.target.getAttribute('data-piece'));
         });
@@ -97,27 +102,99 @@ class PuzzleGame {
         this.backBtn.addEventListener('click', () => {
             window.location.href = '../tampilanMenu/tampilanMenu.html';
         });
-        this.promoteBtn.addEventListener('click', () => {
-            window.location.href = '../kls2/kls2.html';
-        });
+
+        // Add score popup button listeners - fix button initialization
+        const scoreBackBtn = document.getElementById('scoreBackBtn');
+        const promoteBtn = document.getElementById('promoteBtn');
+
+         if (promoteBtn) {
+            promoteBtn.addEventListener('click', () => {
+                window.location.href = '../kls2/kls2.html';
+            });
+        }
+
+        if (scoreBackBtn) {
+            scoreBackBtn.addEventListener('click', () => {
+                window.location.href = '../tampilanMenu/tampilanMenu.html';
+            });
+        }
     }
 
     showFeedback(isCorrect) {
         this.feedbackImage.src = isCorrect ? '../assets/img/benar.png' : '../assets/img/salah.png';
         this.feedbackOverlay.style.display = 'flex';
         
+        if (isCorrect) {
+            this.correctAnswers++;
+        }
+        
         setTimeout(() => {
             this.feedbackOverlay.style.display = 'none';
-            // Always progress after level 1, only check correctness for level 2
             if (this.currentLevel === 1) {
                 this.nextLevel();
-            } else if (this.currentLevel === 2 && isCorrect) {
-                localStorage.setItem('kelas2Unlocked', 'true');
-                window.location.href = '../kls2/kls2.html';
-            } else if (this.currentLevel === 2 && !isCorrect) {
-                this.setupLevel(); // Reset level 2 if incorrect
+            } else if (this.currentLevel === 2) {
+                if (isCorrect) {
+                    localStorage.setItem('kelas2Unlocked', 'true');
+                    this.showScore(); // Show score popup when completed
+                } else {
+                    this.setupLevel();
+                }
             }
-        }, 2000); // Hide feedback after 2 seconds
+        }, 1000);
+    }
+
+    showScore() {
+        this.scoreOverlay.style.display = 'flex';
+        
+        // Show stars animation first
+        setTimeout(() => {
+            if (this.correctAnswers >= 1) {
+                this.star1.style.opacity = '1';
+            }
+            if (this.correctAnswers === 2) {
+                setTimeout(() => {
+                    this.star2.style.opacity = '1';
+                }, 300);
+            }
+        }, 500);
+
+        // Handle navigation buttons
+        const promoteBtn = document.getElementById('promoteBtn');
+        if (promoteBtn) {
+            // Remove existing listeners
+            const newPromoteBtn = promoteBtn.cloneNode(true);
+            promoteBtn.parentNode.replaceChild(newPromoteBtn, promoteBtn);
+            
+            // Set button text based on score
+            newPromoteBtn.textContent = this.correctAnswers > 0 ? 'NAIK KELAS' : 'ULANG';
+            
+            // Add new click handler
+            newPromoteBtn.onclick = () => {
+                if (this.correctAnswers > 0) {
+                    // If at least one correct answer, proceed to next class
+                    localStorage.setItem('kelas2Unlocked', 'true');
+                    // Force navigation to kls2.html
+                    document.location.href = '../kls2/kls2.html';
+                } else {
+                    // If all wrong, reset to level 1
+                    this.scoreOverlay.style.display = 'none';
+                    this.currentLevel = 1;
+                    this.correctAnswers = 0;
+                    this.setupLevel();
+                }
+            };
+        }
+
+        // Handle back button
+        const scoreBackBtn = document.getElementById('scoreBackBtn');
+        if (scoreBackBtn) {
+            const newBackBtn = scoreBackBtn.cloneNode(true);
+            scoreBackBtn.parentNode.replaceChild(newBackBtn, scoreBackBtn);
+            
+            newBackBtn.onclick = () => {
+                document.location.href = '../tampilanMenu/tampilanMenu.html';
+            };
+        }
     }
 
     checkSolution() {

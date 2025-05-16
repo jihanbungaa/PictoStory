@@ -2,18 +2,21 @@ class PuzzleGame {
     constructor() {
         this.currentLevel = 1;
         this.stories = [
-            "🌳Riko yang sedang bermain ponsel 🎈",
+        "🌳Riko yang sedang bermain ponsel 🎈",
             
-            "🐱Riko dengan kucing dan bola benang ✨",
+         "🐱Riko dengan kucing dan bola benang ✨",
         ];
-        
-        this.promoteBtn = document.getElementById('promoteBtn');
         this.completedPuzzles = 0;
-
+        this.promoteBtn = document.getElementById('promoteBtn');
+        this.feedbackOverlay = document.getElementById('feedbackOverlay');
+        this.feedbackImage = document.getElementById('feedbackImage');
+        this.scoreOverlay = document.getElementById('scoreOverlay');
+        this.star1 = document.getElementById('star1');
+        this.star2 = document.getElementById('star2');
+        this.correctAnswers = 0;
+        
         this.init();
     }
-
-    
 
     init() {
         this.storyBoard = document.getElementById('storyBoard');
@@ -31,37 +34,7 @@ class PuzzleGame {
         const storyText = this.storyBoard.querySelector('.story-text');
         storyText.textContent = this.stories[this.currentLevel - 1];
 
-        // Clear previous example image
-        const oldExample = this.storyBoard.querySelector('.example-container');
-        if (oldExample) oldExample.remove();
-
-        // Create example container
-        const exampleContainer = document.createElement('div');
-        exampleContainer.classList.add('example-container');
-
-        // Add floating balloons
-        const balloon1 = document.createElement('img');
-        balloon1.src = '../assets/img/balon.png';
-        balloon1.classList.add('floating-balloon', 'balloon-left');
-
-        const balloon2 = document.createElement('img');
-        balloon2.src = '../assets/img/balon.png';
-        balloon2.classList.add('floating-balloon', 'balloon-right');
-
-        // Add example image based on level
-        const exampleImage = document.createElement('img');
-        exampleImage.src = this.currentLevel === 1 
-            ? '../assets/img/gambar2.png'
-            : '../assets/img/gambar3.png';
-        exampleImage.classList.add('example-image');
-
-        // Assemble container
-        exampleContainer.appendChild(balloon1);
-        exampleContainer.appendChild(exampleImage);
-        exampleContainer.appendChild(balloon2);
-        this.storyBoard.appendChild(exampleContainer);
-
-        // Clear boards
+        // Clear puzzle areas
         this.sourcePieces.innerHTML = '';
         this.targetBoard.innerHTML = '';
 
@@ -69,9 +42,19 @@ class PuzzleGame {
         const pieces = [1, 2, 3, 4];
         this.shuffleArray(pieces);
 
+        // Update example image based on current level
+        const exampleImage = document.querySelector('.question-images img:nth-child(' + this.currentLevel + ')');
+        if (exampleImage) {
+            exampleImage.style.display = 'block';
+        }
+        // Hide other example image
+        const otherImage = document.querySelector('.question-images img:nth-child(' + (this.currentLevel === 1 ? 2 : 1) + ')');
+        if (otherImage) {
+            otherImage.style.display = 'none';
+        }
+
         pieces.forEach(num => {
             const piece = document.createElement('img');
-            // Update image path to match the exact filenames
             if (this.currentLevel === 1) {
                 piece.src = `../assets/img/puzzle(2)${num}.png`; // Level 1 assets
             } else {
@@ -93,6 +76,7 @@ class PuzzleGame {
     }
 
     setupEventListeners() {
+        // Remove duplicate promoteBtn listener
         this.sourcePieces.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', e.target.getAttribute('data-piece'));
         });
@@ -120,10 +104,87 @@ class PuzzleGame {
             window.location.href = '../tampilanMenu/tampilanMenu.html';
         });
 
-        this.promoteBtn.addEventListener('click', () => {
-            alert('🎉 SELAMAT! Kamu telah menyelesaikan semua level! 🌟');
-            window.location.href = '../kls4/kls4.html';
-        });
+        // Add score popup button listeners - fix button initialization
+        const scoreBackBtn = document.getElementById('scoreBackBtn');
+        const promoteBtn = document.getElementById('promoteBtn');
+
+        if (scoreBackBtn) {
+            scoreBackBtn.addEventListener('click', () => {
+                window.location.href = '../tampilanMenu/tampilanMenu.html';
+            });
+        }
+
+        if (promoteBtn) {
+            promoteBtn.addEventListener('click', () => {
+                window.location.href = '../kls4/kls4.html';
+            });
+        }
+    }
+
+    showFeedback(isCorrect) {
+        this.feedbackImage.src = isCorrect ? '../assets/img/benar.png' : '../assets/img/salah.png';
+        this.feedbackOverlay.style.display = 'flex';
+        
+        if (isCorrect) {
+            this.correctAnswers++;
+        }
+        
+        setTimeout(() => {
+            this.feedbackOverlay.style.display = 'none';
+            if (this.currentLevel === 1) {
+                this.nextLevel();
+            } else if (this.currentLevel === 2) {
+                if (isCorrect) {
+                    localStorage.setItem('kelas3Unlocked', 'true');
+                    this.showScore(); // Show score popup when completed
+                } else {
+                    this.setupLevel();
+                }
+            }
+        }, 1000);
+    }
+
+    showScore() {
+        this.scoreOverlay.style.display = 'flex';
+        
+        // Remove old event listeners if they exist
+        const oldPromoteBtn = document.getElementById('promoteBtn');
+        const oldScoreBackBtn = document.getElementById('scoreBackBtn');
+        if (oldPromoteBtn) {
+            oldPromoteBtn.replaceWith(oldPromoteBtn.cloneNode(true));
+        }
+        if (oldScoreBackBtn) {
+            oldScoreBackBtn.replaceWith(oldScoreBackBtn.cloneNode(true));
+        }
+        
+        // Add new event listeners
+        const promoteBtn = document.getElementById('promoteBtn');
+        const scoreBackBtn = document.getElementById('scoreBackBtn');
+        
+        if (promoteBtn) {
+            promoteBtn.addEventListener('click', () => {
+                console.log('Promote button clicked'); // For debugging
+                window.location.href = '../kls4/kls4.html';
+            });
+        }
+        
+        if (scoreBackBtn) {
+            scoreBackBtn.addEventListener('click', () => {
+                window.location.href = '../tampilanMenu/tampilanMenu.html';
+            });
+        }
+        
+        // Show stars based on correct answers
+        setTimeout(() => {
+            if (this.correctAnswers >= 1) {
+                this.star1.style.opacity = '1';
+            }
+            if (this.correctAnswers === 2) {
+                setTimeout(() => {
+                    this.star2.style.opacity = '1';
+                }, 300);
+            }
+        }, 500);
     }
 
     checkSolution() {
@@ -136,42 +197,15 @@ class PuzzleGame {
             }
         });
 
-        if (correct) {
-            this.completedPuzzles++;
-            alert('🎉 HOREE! KAMU BERHASIL! 🎉\n\nWah, kamu hebat sekali! Puzzle-nya sudah tersusun dengan sempurna!\n\n✨ SELAMAT YA! ✨');
-            
-            if (this.completedPuzzles === 2) {
-                this.nextBtn.style.display = 'inline-block';
-                this.nextBtn.textContent = 'NAIK KELAS';
-                localStorage.setItem('kelas4Unlocked', 'true');
-                this.nextBtn.addEventListener('click', () => {
-                    window.location.href = '../kls4/kls4.html';
-                });
-            } else if (this.currentLevel === 1) {
-                this.nextBtn.style.display = 'inline-block';
-                this.nextBtn.textContent = 'LANJUT';
-            }
-        } else {
-            if (this.currentLevel === 2) {
-                alert('🤔 Ups! Puzzle-nya masih belum pas nih...\nAyo coba lagi! 💪');
-                this.setupLevel();
-            } else {
-                alert('🤔 Ups! Puzzle-nya masih belum pas nih...\nAyo coba lagi! 💪');
-                this.nextBtn.style.display = 'inline-block';
-                this.nextBtn.textContent = 'LANJUT';
-            }
-        }
+        this.showFeedback(correct);
     }
 
     nextLevel() {
         if (this.currentLevel < 2) {
             this.currentLevel++;
-            this.nextBtn.style.display = 'none';
             this.setupLevel();
         }
     }
-
-    
 
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {

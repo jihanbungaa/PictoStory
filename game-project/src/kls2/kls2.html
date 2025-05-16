@@ -8,22 +8,52 @@
 </head>
 <body>
     <div class="container">
-        <div class="puzzle-container">
-            <div class="story-board" id="storyBoard">
-                <h2 class="story-title">Kelas 2</h2>
-                <p class="story-text"></p>
+        <div class="left-section">
+            <div class="example-images">
+                <img src="../assets/img/balon.png" class="floating-balloon" alt="balon">
+                <div class="question-images">
+                    <img src="../assets/img/gambar4.png" class="story-image" alt="soal 1">
+                    <img src="../assets/img/pict5.png" class="story-image" alt="soal 2" style="display: none;">
+                </div>
             </div>
-            
-            <div class="puzzle-area">
-                <div class="source-pieces" id="sourcePieces"></div>
-                <div class="target-board" id="targetBoard"></div>
-            </div>
+        </div>
+        
+        <div class="right-section">
+            <div class="puzzle-container">
+                <div class="story-board" id="storyBoard">
+                    <h2 class="story-title">Kelas 2</h2>
+                    <p class="story-text"></p>
+                </div>
+                
+                <div class="puzzle-area">
+                    <div class="source-pieces" id="sourcePieces"></div>
+                    <div class="target-board" id="targetBoard"></div>
+                </div>
 
-            <div class="controls">
-                <button id="backBtn">KEMBALI</button>
-                <button id="checkBtn">CEK</button>
-                <button id="promoteBtn" style="display: none;">Naik Kelas</button>
-                <button id="nextBtn" style="display: none;"></button>
+                <div class="controls">
+                    <button id="backBtn">KEMBALI</button>
+                    <button id="checkBtn">CEK</button>
+                    <button id="nextBtn" style="display: none;">LANJUT</button>
+             
+                </div>
+            </div>
+        </div>
+        
+        <div class="feedback-overlay" id="feedbackOverlay">
+            <img src="" alt="feedback" id="feedbackImage" class="feedback-image">
+        </div>
+
+        <div class="score-overlay" id="scoreOverlay">
+            <div class="score-popup">
+                <h2>✨ Skor Kamu ✨</h2>
+                <div class="stars-container">
+                    <img src="../assets/img/stars1.png" class="star" id="star1">
+                    <img src="../assets/img/stars1.png" class="star" id="star2">
+                </div>
+                <div class="score-buttons">
+                    <button id="scoreBackBtn" class="score-btn back-btn">KEMBALI</button>
+                    <button id="promoteBtn" class="score-btn promote-btn">NAIK KELAS</button>
+                </div>
             </div>
         </div>
     </div>

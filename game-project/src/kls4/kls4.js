@@ -2,11 +2,16 @@ class PuzzleGame {
     constructor() {
         this.currentLevel = 1;
         this.stories = [
-            "Rio yang sedang sedih \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar",
-            "4 anak perempuan sedang belajar bersama. \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar!"
+             "4 anak perempuan sedang belajar bersama. \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar!",
+            "Rio yang sedang sedih \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar",     
         ];
-        this.promoteBtn = document.getElementById('promoteBtn');
-        this.completedPuzzles = 0;
+        this.feedbackOverlay = document.getElementById('feedbackOverlay');
+        this.feedbackImage = document.getElementById('feedbackImage');
+        this.scoreOverlay = document.getElementById('scoreOverlay');
+        this.star1 = document.getElementById('star1');
+        this.star2 = document.getElementById('star2');
+        this.correctAnswers = 0;
+        
         this.init();
     }
 
@@ -21,80 +26,65 @@ class PuzzleGame {
         this.setupEventListeners();
     }
 
-    setupLevel() {
-        // Update story text
+     setupLevel() {
         const storyText = this.storyBoard.querySelector('.story-text');
         storyText.textContent = this.stories[this.currentLevel - 1];
-
-        // Clear previous example image
-        const oldExample = this.storyBoard.querySelector('.example-container');
-        if (oldExample) oldExample.remove();
-
-        // Create example container
-        const exampleContainer = document.createElement('div');
-        exampleContainer.classList.add('example-container');
-
-        // Add floating balloons
-        const balloon1 = document.createElement('img');
-        balloon1.src = '../assets/img/balon.png';
-        balloon1.classList.add('floating-balloon', 'balloon-left');
-
-        const balloon2 = document.createElement('img');
-        balloon2.src = '../assets/img/balon.png';
-        balloon2.classList.add('floating-balloon', 'balloon-right');
-
-        // Add example image based on level
-        const exampleImage = document.createElement('img');
-        exampleImage.src = this.currentLevel === 1 
-            ? '../assets/img/pict8.png'
-            : '../assets/img/pict7.png';
-        exampleImage.classList.add('example-image');
-
-        // Assemble container
-        exampleContainer.appendChild(balloon1);
-        exampleContainer.appendChild(exampleImage);
-        exampleContainer.appendChild(balloon2);
-        this.storyBoard.appendChild(exampleContainer);
 
         this.sourcePieces.innerHTML = '';
         this.targetBoard.innerHTML = '';
 
-        if (this.currentLevel === 1) {
-            // First puzzle - 3x3 using pict8_ assets
-            const pieces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-            this.shuffleArray(pieces);
-            
-            pieces.forEach(num => {
-                const piece = document.createElement('img');
-                piece.src = `../assets/img/pict8_${num}.png`;  // Using pict8_ for first puzzle
-                piece.classList.add('puzzle-piece');
-                piece.setAttribute('data-piece', num);
-                piece.draggable = true;
-                this.sourcePieces.appendChild(piece);
-            });
-        } else {
-            // Second puzzle - 3x3 with correct (pict7_) and incorrect (pict13_) pieces
-            const correctPieces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-            const wrongPieces = [1, 3, 5].map(num => `wrong_${num}`); // Using some numbers for pict13_
-            const allPieces = [...correctPieces, ...wrongPieces];
-            this.shuffleArray(allPieces);
-            
-            allPieces.forEach(piece => {
-                const pieceElement = document.createElement('img');
-                if (typeof piece === 'number') {
-                    pieceElement.src = `../assets/img/pict7_${piece}.png`;  // Correct pieces using pict7_
-                } else {
-                    const wrongNum = piece.split('_')[1];
-                    pieceElement.src = `../assets/img/pict13_${wrongNum}.png`;  // Wrong pieces using pict13_
-                }
-                pieceElement.classList.add('puzzle-piece');
-                pieceElement.setAttribute('data-piece', piece);
-                pieceElement.draggable = true;
-                this.sourcePieces.appendChild(pieceElement);
-            });
+        // Update example image
+        const exampleImage = document.querySelector('.question-images img:nth-child(' + this.currentLevel + ')');
+        if (exampleImage) {
+            exampleImage.style.display = 'block';
+        }
+        const otherImage = document.querySelector('.question-images img:nth-child(' + (this.currentLevel === 1 ? 2 : 1) + ')');
+        if (otherImage) {
+            otherImage.style.display = 'none';
         }
 
-        // Create 3x3 grid of drop zones
+        // Create puzzle pieces array with both correct and incorrect pieces
+        const correctPieces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const incorrectPieces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        
+        // Combine correct and incorrect pieces
+        let allPieces = [];
+        correctPieces.forEach(num => {
+            allPieces.push({
+                number: num,
+                isCorrect: true
+            });
+        });
+        incorrectPieces.forEach(num => {
+            allPieces.push({
+                number: num,
+                isCorrect: false
+            });
+        });
+
+        // Shuffle all pieces
+        this.shuffleArray(allPieces);
+
+        // Create and add pieces to source area
+        allPieces.forEach(piece => {
+            const pieceElement = document.createElement('img');
+            if (this.currentLevel === 1) {
+                pieceElement.src = piece.isCorrect ? 
+                    `../assets/img/pict8_${piece.number}.png` : 
+                    `../assets/img/puzzle_piece_${piece.number}.png`;
+            } else {
+                pieceElement.src = piece.isCorrect ? 
+                    `../assets/img/pict7_${piece.number}.png` : 
+                    `../assets/img/pict13_${piece.number}.png`;
+            }
+            pieceElement.classList.add('puzzle-piece');
+            pieceElement.setAttribute('data-piece', piece.number);
+            pieceElement.setAttribute('data-correct', piece.isCorrect);
+            pieceElement.draggable = true;
+            this.sourcePieces.appendChild(pieceElement);
+        });
+
+        // Create drop zones
         for (let i = 1; i <= 9; i++) {
             const dropZone = document.createElement('div');
             dropZone.classList.add('drop-zone');
@@ -120,9 +110,12 @@ class PuzzleGame {
             const pieceNum = e.dataTransfer.getData('text/plain');
             const piece = document.querySelector(`[data-piece="${pieceNum}"]`);
             
-            if (dropZone.children.length === 0) {
-                dropZone.appendChild(piece);
+            // Replace existing piece if present
+            if (dropZone.children.length > 0) {
+                const existingPiece = dropZone.children[0];
+                this.sourcePieces.appendChild(existingPiece);
             }
+            dropZone.appendChild(piece);
         });
 
         this.checkBtn.addEventListener('click', () => this.checkSolution());
@@ -137,43 +130,87 @@ class PuzzleGame {
         });
     }
 
+    showFeedback(isCorrect) {
+        this.feedbackImage.src = isCorrect ? '../assets/img/benar.png' : '../assets/img/salah.png';
+        this.feedbackOverlay.style.display = 'flex';
+        
+        if (isCorrect) {
+            this.correctAnswers++;
+        }
+        
+        setTimeout(() => {
+            this.feedbackOverlay.style.display = 'none';
+            if (this.currentLevel === 1) {
+                this.nextLevel();
+            } else if (this.currentLevel === 2) {
+                if (isCorrect) {
+                    localStorage.setItem('kelas5Unlocked', 'true');
+                    this.showScore();
+                } else {
+                    this.setupLevel();
+                }
+            }
+        }, 2000);
+    }
+
+    showScore() {
+        this.scoreOverlay.style.display = 'flex';
+        
+        setTimeout(() => {
+            if (this.correctAnswers >= 1) {
+                this.star1.style.opacity = '1';
+            }
+            if (this.correctAnswers === 2) {
+                setTimeout(() => {
+                    this.star2.style.opacity = '1';
+                }, 300);
+            }
+        }, 500);
+
+        const promoteBtn = document.getElementById('promoteBtn');
+        if (promoteBtn) {
+            const newPromoteBtn = promoteBtn.cloneNode(true);
+            promoteBtn.parentNode.replaceChild(newPromoteBtn, promoteBtn);
+            
+            newPromoteBtn.textContent = this.correctAnswers > 0 ? 'NAIK KELAS' : 'ULANG';
+            
+            newPromoteBtn.onclick = () => {
+                if (this.correctAnswers > 0) {
+                    localStorage.setItem('kelas5Unlocked', 'true');
+                    document.location.href = '../kls5/kls5.html';
+                } else {
+                    this.scoreOverlay.style.display = 'none';
+                    this.currentLevel = 1;
+                    this.correctAnswers = 0;
+                    this.setupLevel();
+                }
+            };
+        }
+
+        const scoreBackBtn = document.getElementById('scoreBackBtn');
+        if (scoreBackBtn) {
+            const newBackBtn = scoreBackBtn.cloneNode(true);
+            scoreBackBtn.parentNode.replaceChild(newBackBtn, scoreBackBtn);
+            
+            newBackBtn.onclick = () => {
+                document.location.href = '../tampilanMenu/tampilanMenu.html';
+            };
+        }
+    }
+
     checkSolution() {
         const dropZones = this.targetBoard.querySelectorAll('.drop-zone');
         let correct = true;
 
         dropZones.forEach((zone, index) => {
             if (!zone.children[0] || 
-                parseInt(zone.children[0].getAttribute('data-piece')) !== index + 1) {
+                parseInt(zone.children[0].getAttribute('data-piece')) !== index + 1 ||
+                zone.children[0].getAttribute('data-correct') !== 'true') {
                 correct = false;
             }
         });
-if (correct) {
-            this.completedPuzzles++;
-            alert('🎉 HOREE! KAMU BERHASIL! 🎉\n\nWah, kamu hebat sekali! Puzzle-nya sudah tersusun dengan sempurna!\n\n✨ SELAMAT YA! ✨');
-            
-            if (this.completedPuzzles === 2) {
-                // Show NAIK KELAS button when both puzzles completed
-                this.nextBtn.style.display = 'inline-block';
-                this.nextBtn.textContent = 'NAIK KELAS';
-                localStorage.setItem('kelas2Unlocked', 'true');
-                this.nextBtn.addEventListener('click', () => {
-                    window.location.href = '../kls2/kls2.html';
-                });
-            } else if (this.currentLevel === 1) {
-                this.nextBtn.style.display = 'inline-block';
-                this.nextBtn.textContent = 'LANJUT';
-            }
-        } else {
-            if (this.currentLevel === 2) {
-                // For last puzzle, give option to retry
-                alert('🤔 Ups! Puzzle-nya masih belum pas nih...\nAyo coba lagi! 💪');
-                this.setupLevel(); // Reset puzzle pieces
-            } else {
-                alert('🤔 Ups! Puzzle-nya masih belum pas nih...\nAyo coba lagi! 💪');
-                this.nextBtn.style.display = 'inline-block';
-                this.nextBtn.textContent = 'LANJUT';
-            }
-        }
+
+        this.showFeedback(correct);
     }
 
     nextLevel() {

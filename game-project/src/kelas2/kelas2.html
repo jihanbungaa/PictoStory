@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PictoStory - Quiz Game</title>
+    <link rel="stylesheet" href="kelas2.css">
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-section">
+            <h1>Kelas 2</h1>
+            <div class="question-container">
+                <img src="../assets/img/pict19.png" alt="Quiz Image" class="question-image" id="questionImage">
+                <p class="question-text">Apa yang sedang dilakukan anak tersebut?</p>
+                <div class="options-container">
+                    <button class="option-btn">bermain bola</button>
+                    <button class="option-btn">berenang</button>
+       
+                </div>
+            </div>
+            <button id="backBtn">KEMBALI</button>
+        </div>
+    </div>
+
+    <div class="feedback-overlay" id="feedbackOverlay">
+        <img src="" alt="feedback" id="feedbackImage" class="feedback-image">
+    </div>
+
+    <div class="score-overlay" id="scoreOverlay">
+        <div class="score-popup">
+            <h2>✨ Skor Kamu ✨</h2>
+            <div class="stars-container">
+                <img src="../assets/img/stars1.png" class="star" id="star1">
+                <img src="../assets/img/stars1.png" class="star" id="star2">
+            </div>
+            <div class="score-buttons">
+                <button id="scoreBackBtn" class="back-btn">KEMBALI</button>
+                <button id="promoteBtn" class="promote-btn">NAIK KELAS</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="kelas2.js"></script>
+</body>
+</html>

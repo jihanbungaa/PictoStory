@@ -8,7 +8,6 @@ body {
     width: 100vw;
     height: 115vh;
     background-image: url('../../src/assets/img/TampilanUtamaPS.png');
- 
     overflow: hidden;
     display: flex;
     justify-content: center;
