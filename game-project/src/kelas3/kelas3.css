@@ -10,6 +10,16 @@
     }
 }
 
+@keyframes bounce {
+    0%, 100% { 
+        transform: translateY(0); 
+    }
+    50% { 
+        transform: translateY(-10px);
+        color: #FFD700;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -160,16 +170,15 @@ body {
     text-align: center;
     border: 3px solid #FFD700;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
 }
 
 .score-popup h2 {
-    color: #FF6B6B;
-    font-size: 24px;
-    margin-bottom: 20px;
+    display: none; /* Hide the original heading */
 }
 
 .stars-container {
-    margin: 2rem 0;
+    margin: 1.5rem 0;
 }
 
 .star {
@@ -213,4 +222,15 @@ body {
 .back-btn:hover,
 .promote-btn:hover {
     transform: scale(1.05);
+}
+
+.congrats-message {
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 1.8em;
+    color: #FF6B6B;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    animation: bounce 2s infinite;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }

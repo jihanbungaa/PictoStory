@@ -2,8 +2,8 @@ class PuzzleGame {
     constructor() {
         this.currentLevel = 1;
         this.stories = [
-             "Rico yang sedang makan\n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar!",
-             "Rico dengan kucing dan bola benang  \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar",     
+             "Rico yang sedang makan \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar!",
+            "Rico bermain dengan kucing dan bola benang \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar",     
         ];
         this.feedbackOverlay = document.getElementById('feedbackOverlay');
         this.feedbackImage = document.getElementById('feedbackImage');
@@ -71,11 +71,11 @@ class PuzzleGame {
             if (this.currentLevel === 1) {
                 pieceElement.src = piece.isCorrect ? 
                     `../assets/img/pict13_${piece.number}.png` : 
-                    `../assets/img/puzzle_piece_${piece.number}.png`;
+                    `../assets/img/pict24_${piece.number}.png`;
             } else {
                 pieceElement.src = piece.isCorrect ? 
                     `../assets/img/puzzle_piece_${piece.number}.png` : 
-                    `../assets/img/pict13_${piece.number}.png`;
+                    `../assets/img/pict25_${piece.number}.png`;
             }
             pieceElement.classList.add('puzzle-piece');
             pieceElement.setAttribute('data-piece', piece.number);
@@ -94,7 +94,10 @@ class PuzzleGame {
     }
 
     setupEventListeners() {
+        let draggedPiece = null; // Add this to track the dragged piece
+
         this.sourcePieces.addEventListener('dragstart', (e) => {
+            draggedPiece = e.target; // Store the actual dragged element
             e.dataTransfer.setData('text/plain', e.target.getAttribute('data-piece'));
         });
 
@@ -105,17 +108,17 @@ class PuzzleGame {
         this.targetBoard.addEventListener('drop', (e) => {
             e.preventDefault();
             const dropZone = e.target.closest('.drop-zone');
-            if (!dropZone) return;
+            if (!dropZone || !draggedPiece) return;
 
-            const pieceNum = e.dataTransfer.getData('text/plain');
-            const piece = document.querySelector(`[data-piece="${pieceNum}"]`);
-            
-            // Replace existing piece if present
+            // If there's already a piece in the drop zone, swap them
             if (dropZone.children.length > 0) {
                 const existingPiece = dropZone.children[0];
                 this.sourcePieces.appendChild(existingPiece);
             }
-            dropZone.appendChild(piece);
+
+            // Move the dragged piece to the drop zone
+            dropZone.appendChild(draggedPiece);
+            draggedPiece = null; // Reset the dragged piece reference
         });
 
         this.checkBtn.addEventListener('click', () => this.checkSolution());
@@ -177,7 +180,7 @@ class PuzzleGame {
             newPromoteBtn.onclick = () => {
                 if (this.correctAnswers > 0) {
                     localStorage.setItem('kelas5Unlocked', 'true');
-                    document.location.href = '../kls5/kls5.html';
+                    document.location.href = '../kls6/kls6.html';
                 } else {
                     this.scoreOverlay.style.display = 'none';
                     this.currentLevel = 1;

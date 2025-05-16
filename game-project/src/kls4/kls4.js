@@ -94,7 +94,10 @@ class PuzzleGame {
     }
 
     setupEventListeners() {
+        let draggedPiece = null; // Add this to track the dragged piece
+
         this.sourcePieces.addEventListener('dragstart', (e) => {
+            draggedPiece = e.target; // Store the actual dragged element
             e.dataTransfer.setData('text/plain', e.target.getAttribute('data-piece'));
         });
 
@@ -105,17 +108,17 @@ class PuzzleGame {
         this.targetBoard.addEventListener('drop', (e) => {
             e.preventDefault();
             const dropZone = e.target.closest('.drop-zone');
-            if (!dropZone) return;
+            if (!dropZone || !draggedPiece) return;
 
-            const pieceNum = e.dataTransfer.getData('text/plain');
-            const piece = document.querySelector(`[data-piece="${pieceNum}"]`);
-            
-            // Replace existing piece if present
+            // If there's already a piece in the drop zone, swap them
             if (dropZone.children.length > 0) {
                 const existingPiece = dropZone.children[0];
                 this.sourcePieces.appendChild(existingPiece);
             }
-            dropZone.appendChild(piece);
+
+            // Move the dragged piece to the drop zone
+            dropZone.appendChild(draggedPiece);
+            draggedPiece = null; // Reset the dragged piece reference
         });
 
         this.checkBtn.addEventListener('click', () => this.checkSolution());
