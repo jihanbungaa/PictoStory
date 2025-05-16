@@ -98,17 +98,18 @@ body {
 
 .puzzle-area {
     display: flex;
-    flex-direction: row; /* Changed from column to row */
-    gap: 50px; /* Increased gap between source and target */
+    flex-direction: column;
+    gap: 30px;
     margin: 20px 0;
-    justify-content: center; /* Center horizontally */
-    align-items: flex-start; /* Align to top */
+    justify-content: center;
+    align-items: center;
 }
 
 .source-pieces {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    grid-template-columns: repeat(6, 1fr); /* Changed to 6 columns for wider landscape */
+    grid-template-rows: repeat(2, 1fr); /* Changed to 2 rows for shorter height */
+    gap: 10px;
     padding: 15px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -117,8 +118,9 @@ body {
 
 .target-board {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    grid-template-columns: repeat(3, 1fr); /* Changed to 3x3 grid for square layout */
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
     padding: 15px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -127,8 +129,8 @@ body {
 }
 
 .puzzle-piece {
-    width: 120px;
-    height: 120px;
+    width: 100px; /* Adjusted size to fit new layout */
+    height: 100px;
     cursor: grab;
     border: 2px solid transparent;
     border-radius: 5px;
@@ -140,8 +142,8 @@ body {
 }
 
 .drop-zone {
-    width: 120px;
-    height: 120px;
+    width: 100px; /* Match puzzle piece size */
+    height: 100px;
     border: 2px dashed #aaa;
     border-radius: 5px;
     display: flex;
