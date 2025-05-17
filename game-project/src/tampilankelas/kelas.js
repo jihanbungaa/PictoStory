@@ -66,14 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle Kelas 2
     if (isKelas2Unlocked) {
-        unlockLevel(kelas2Element, '../kls2/kls2.html');
+        unlockLevel(kelas2Element, '../kelas2/kelas2.html');
     } else {
         lockLevel(kelas2Element);
     }
 
     // Handle Kelas 3
     if (isKelas3Unlocked) {
-        unlockLevel(kelas3Element, '../kls3/kls3.html');
+        unlockLevel(kelas3Element, '../kelas3/kelas3.html');
     } else {
         lockLevel(kelas3Element);
     }

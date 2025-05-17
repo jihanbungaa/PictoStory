@@ -91,7 +91,7 @@ class QuizGame {
             promoteBtn.onclick = () => {
                 if (this.correctAnswers > 0) {
                     localStorage.setItem('kelas2Unlocked', 'true');
-                    window.location.href = '../kelas2/kelas2.html';
+                    window.location.href = '../kelas3/kelas3.html';
                 } else {
                     this.scoreOverlay.style.display = 'none';
                     this.currentLevel = 1;

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const htpButton = document.getElementById('htp-btn');
 
     startButton.addEventListener('click', () => {
-        window.location.href = '../tampilankls/kls.html';
+        window.location.href = '../pilihan/pilihan.html';
     });
 
     htpButton.addEventListener('click', () => {

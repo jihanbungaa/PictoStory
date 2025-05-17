@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Puzzle Game</title>
+    <link rel="stylesheet" href="class.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Stars Life System -->
+        <div class="stars-container">
+            <img src="../assets/img/stars1.png" class="star" id="star1">
+            <img src="../assets/img/stars1.png" class="star" id="star2">
+            <img src="../assets/img/stars1.png" class="star" id="star3">
+        </div>
+
+
+        <!-- Question Board -->
+        <div class="question-board">
+            <h2>Cocokan gambar dengan benar ya! 😊</h2>
+        </div>
+
+        <div class="game-boards">
+            <!-- Source Board -->
+            <div class="source-board">
+                  <div class="drag-item" draggable="true" data-item="apel">
+                    <img src="../assets/img/apel.jpg" alt="Apel">
+                </div>
+                <div class="drag-item" draggable="true" data-item="sapi">
+                    <img src="../assets/img/sapi.jpg" alt="Sapi">
+                </div>
+                <div class="drag-item" draggable="true" data-item="jeruk">
+                    <img src="../assets/img/jeruk.jpg" alt="Jeruk">
+                </div>
+                <div class="drag-item" draggable="true" data-item="mulut">
+                    <img src="../assets/img/mulut.jpg" alt="Mulut">
+                </div>
+                <div class="drag-item" draggable="true" data-item="kaki">
+                    <img src="../assets/img/kaki.jpg" alt="Kaki">
+                </div>
+                <div class="drag-item" draggable="true" data-item="kucing">
+                    <img src="../assets/img/kucing.jpg" alt="Kucing">
+                </div>
+            </div>
+
+            <!-- Target Board -->
+            <div class="target-board">
+                <div class="drop-zone" data-item="sapi">
+                    <div class="zone-label">Sapi</div>
+                    <div class="dropped-image"></div>
+                </div>
+                <div class="drop-zone" data-item="kucing">
+                    <div class="zone-label">Kucing</div>
+                    <div class="dropped-image"></div>
+                </div>
+                <div class="drop-zone" data-item="jeruk">
+                    <div class="zone-label">Jeruk</div>
+                    <div class="dropped-image"></div>
+                </div>
+                <div class="drop-zone" data-item="apel">
+                    <div class="zone-label">Apel</div>
+                    <div class="dropped-image"></div>
+                </div>
+                <div class="drop-zone" data-item="mulut">
+                    <div class="zone-label">Mulut</div>
+                    <div class="dropped-image"></div>
+                </div>
+                <div class="drop-zone" data-item="kaki">
+                    <div class="zone-label">Kaki</div>
+                    <div class="dropped-image"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button id="backBtn">KEMBALI</button>
+            <button id="checkBtn">CEK</button>
+        </div>
+    </div>
+
+    <!-- Score Popup -->
+    <div class="score-overlay"></div>
+
+    <script src="class.js"></script>
+</body>
+</html>

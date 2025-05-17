@@ -1,0 +1,189 @@
+/* style.css */
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: url('../assets/img/ruang.png') no-repeat center center fixed;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.stars {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.star {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
+  transition: transform 0.3s;
+}
+
+.star:hover {
+  transform: scale(1.2) rotate(20deg);
+}
+
+.question {
+  background: linear-gradient(to right, #d16e34, #dbb194);
+  width: 90%;
+  max-width: 800px;
+  min-height: 100px;
+  margin: 40px 0;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.question:hover {
+  transform: translateY(-5px);
+}
+
+.question h2 {
+  color: #fff;
+  font-size: 32px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 25px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.dropzone, .draggable {
+  width: 120px;
+  height: 120px;
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.dropzone {
+  border: 4px dashed #4CAF50;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.dropzone:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+  border-color: #2196F3;
+}
+
+.draggable {
+  background: linear-gradient(45deg, #FF4B2B, #FF416C);
+  color: white;
+}
+
+.draggable:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.draggable:active {
+  transform: scale(0.95);
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #FFD3A5, #FD6585);
+  color: white;
+  padding: 40px;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes popIn {
+  from { transform: translate(-50%, -50%) scale(0); }
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #FD6585;
+}
+button-container:hover {
+  background: #FF4B2B;
+}
+
+.popup button {
+  background: linear-gradient(to right, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.popup button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.popup button:active {
+  transform: translateY(0);
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(to right, #FF416C, #FF4B2B);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.back-button:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.back-btn {
+  background: linear-gradient(to right, #FF416C, #FF4B2B) !important;
+}

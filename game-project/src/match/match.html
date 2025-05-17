@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Drag & Drop Edukasi</title>
+  <link rel="stylesheet" href="match.css">
+</head>
+<body>
+  <div class="stars">
+    <img src="../assets/img/stars1.png" class="star" id="star1">
+    <img src="../assets/img/stars1.png" class="star" id="star2">
+    <img src="../assets/img/stars1.png" class="star" id="star3">
+  </div>
+
+  <div class="question" id="questionBox">
+    <h1>Cocokan gambar yang tepat</h1>
+  </div>
+  <div class="grid">
+    <!-- Draggable items -->
+    <div class="draggable" draggable="true" id="kaki" data-match="kaki"><img src="../assets/img/kaki.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="kucing" data-match="kucing"><img src="../assets/img/kucing.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="jeruk" data-match="jeruk"><img src="../assets/img/jeruk.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="sapi" data-match="sapi"><img src="../assets/img/sapi.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="mulut" data-match="mulut"><img src="../assets/img/mulut.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="apel" data-match="apel"><img src="../assets/img/apel.jpg" width="100" height="100"></div>
+
+    <!-- Drop zones -->
+    <div class="dropzone" data-answer="sapi">Sapi</div>
+    <div class="dropzone" data-answer="kucing">Kucing</div>
+    <div class="dropzone" data-answer="jeruk">Jeruk</div>
+    <div class="dropzone" data-answer="apel">Apel</div>
+    <div class="dropzone" data-answer="mulut">Mulut</div>
+    <div class="dropzone" data-answer="kaki">kaki</div>
+  </div>
+   
+    
+
+  <div class="popup" id="popup">
+    <h2>✨ Hebat kamu telah menyelesaikannya! ✨</h2>
+    <div class="button-group">
+        <button onclick="window.location.href='../pilihan.html'" class="back-btn">KEMBALI</button>
+      <button onclick="location.reload()">ULANG</button>
+    </div>
+  </div>
+
+  <script src="match.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilihan Game</title>
+    <link rel="stylesheet" href="pilihan.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">LEVEL GAME</h1>
+        
+        <div class="games-container">
+            <div class="game-card" onclick="window.location.href='../kls1/kls1.html'">
+                <img src="../assets/img/iconpuzzle.png" alt="Puzzle Game" class="game-icon">
+                <h2 class="game-title">Puzzle Game</h2>
+            </div>
+
+            <div class="game-card" onclick="window.location.href='../tampilankelas/kelas.html'">
+                <img src="../assets/img/iconquiz.png" alt="Quiz Game" class="game-icon">
+                <h2 class="game-title">Quiz Game</h2>
+            </div>
+
+            <div class="game-card" onclick="window.location.href='../match/match.html'">
+                <img src="../assets/img/iconmatch.png" alt="Match Game" class="game-icon">
+                <h2 class="game-title">Match Game</h2>
+            </div>
+        </div>
+
+        <button class="back-button" data-href="../tampilanMenu.html">
+            Kembali ke Menu
+        </button>
+    </div>
+    <script src="pilihan.js"></script>
+</body>
+</html>
