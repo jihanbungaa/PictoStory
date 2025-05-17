@@ -41,18 +41,43 @@ body {
 .level-item {
     position: relative;
     transition: all 0.3s ease;
-    cursor: pointer;
-    padding: 15px;
 }
 
 .level-item.locked {
     opacity: 0.7;
     cursor: not-allowed;
-    filter: grayscale(50%);
+}
+
+.level-item:not(.locked) {
+    cursor: pointer;
+}
+
+.lock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    transition: all 0.3s ease;
+}
+
+.lock.unlocked {
+    color: #4CAF50;
+}
+
+.unlock-animation {
+    animation: unlockEffect 0.6s ease;
+}
+
+@keyframes unlockEffect {
+    0% { transform: translate(-50%, -50%) scale(1) rotate(0); }
+    50% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(0); }
 }
 
 .level-item:not(.locked):hover {
     transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .level-item img {
@@ -71,15 +96,6 @@ body {
 .locked {
     filter: grayscale(100%);
     cursor: not-allowed;
-}
-
-.lock {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    z-index: 2;
 }
 
 .unlocked-animation {

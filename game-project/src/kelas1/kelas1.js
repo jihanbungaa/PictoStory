@@ -103,16 +103,18 @@ class QuizGame {
 
         if (scoreBackBtn) {
             scoreBackBtn.onclick = () => {
-                window.location.href = '../tampilanMenu/tampilanMenu.html';
+                window.location.href = '../tampilankelas/kelas.html';
             };
         }
     }
+
+    
 
     setupEventListeners() {
         const backBtn = document.getElementById('backBtn');
         if (backBtn) {
             backBtn.addEventListener('click', () => {
-                window.location.href = '../tampilanMenu/tampilanMenu.html';
+                window.location.href = '../tampilankelas/kelas.html';
             });
         }
     }

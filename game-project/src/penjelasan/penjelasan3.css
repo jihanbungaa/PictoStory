@@ -1,0 +1,293 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Sans MS', cursive;
+   background-image: url('../../src/assets/img/TampilanUtamaPS.png');
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rainbow-text {
+    font-size: 3em;
+    background: linear-gradient(
+        to right,
+        #FF6B6B,
+        #4ECDC4,
+        #45B7D1,
+        #96E6A1,
+        #FFD93D,
+        #FF6B6B
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 3s linear infinite;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+    background: #ff9a3c;
+    color: white;
+    font-size: 1.2em;
+    font-family: 'Comic Sans MS', cursive;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    background: #ff8227;
+}
+
+.character {
+    width: 100px;
+    height: 100px;
+    background: url('../assets/img/karakter.png') center/contain no-repeat;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    animation: wave 2s infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+.instruction-text {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 2rem auto;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease;
+}
+
+h1 {
+    color: #FF6B6B;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.message {
+    font-size: 1.8rem;
+    line-height: 2.5;
+    color: #333;
+    margin-bottom: 2rem;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.next-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Comic Sans MS', cursive;
+    transition: transform 0.3s ease;
+    animation: bounce 2s infinite;
+}
+
+.next-button:hover {
+    transform: scale(1.05);
+    background-color: #f14f1d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.popup-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    animation: popUp 0.5s ease-out;
+}
+
+@keyframes popUp {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.instruction-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 1.5rem 0;
+}
+
+.greeting {
+    font-size: 1.5em;
+    color: #FF6B6B;
+    margin-bottom: 1rem;
+}
+
+.main-text {
+    font-size: 1.3em;
+    color: #2C3E50;
+    margin-bottom: 1.5rem;
+}
+
+.steps {
+    text-align: left;
+    margin: 1rem 0;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    font-size: 1.2em;
+    color: #2C3E50;
+}
+
+.step-icon {
+    font-size: 1.5em;
+    margin-right: 1rem;
+}
+
+.button-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.back-btn {
+    background: #FF6B6B;
+    color: white;
+}
+
+.play-btn {
+    background: #4ECDC4;
+    color: white;
+}
+
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3em;
+    color: #FF6B6B;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    animation: bounce 1s infinite;
+}
+
+.nav-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: white;
+}
+
+.left-arrow {
+    left: 20px;
+}
+
+.right-arrow {
+    right: 20px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(-50%); }
+    50% { transform: translateY(-60%); }
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .form-box {
+        padding: 20px;
+    }
+    
+    .character {
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        right: -40px;
+    }
+
+    .popup-box {
+        padding: 1rem;
+    }
+
+    .rainbow-text {
+        font-size: 2em;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}

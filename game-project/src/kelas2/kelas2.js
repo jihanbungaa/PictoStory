@@ -103,7 +103,7 @@ class QuizGame {
 
         if (scoreBackBtn) {
             scoreBackBtn.onclick = () => {
-                window.location.href = '../tampilanMenu/tampilanMenu.html';
+                window.location.href = '../tampilankelas/kelas.html';
             };
         }
     }
@@ -112,7 +112,7 @@ class QuizGame {
         const backBtn = document.getElementById('backBtn');
         if (backBtn) {
             backBtn.addEventListener('click', () => {
-                window.location.href = '../tampilanMenu/tampilanMenu.html';
+                window.location.href = '../tampilankelas/kelas.html';
             });
         }
     }
@@ -121,3 +121,11 @@ class QuizGame {
 document.addEventListener('DOMContentLoaded', () => {
     new QuizGame();
 });
+
+function onGameComplete(score, currentLevel) {
+    LevelSystem.completeLevel(currentLevel, score);
+    // Redirect back to level selection after delay
+    setTimeout(() => {
+        window.location.href = '../tampilankelas/kelas.html';
+    }, 2000);
+}

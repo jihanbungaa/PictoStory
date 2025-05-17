@@ -5,95 +5,77 @@ class LevelSystem {
     }
 
     init() {
-        // Load progress from localStorage
         const progress = this.loadProgress();
         
         this.levels.forEach((level, index) => {
-            if (index === 0) return; // Skip level 1 (always unlocked)
-            
             const levelNum = index + 1;
-            level.addEventListener('click', () => this.handleLevelClick(levelNum));
             
-            // Unlock levels based on progress
-            if (progress[`level${levelNum-1}`] >= 2) {
-                this.unlockLevel(level);
+            // Level 1 is always unlocked
+            if (levelNum === 1) {
+                level.classList.remove('locked');
+                const lockIcon = level.querySelector('.lock');
+                if (lockIcon) lockIcon.remove();
+                level.onclick = () => this.navigateToLevel(levelNum);
+                return;
+            }
+            
+            // Check if previous level was completed
+            if (progress[`level${levelNum-1}`] > 0) {
+                this.unlockLevel(level, levelNum);
+            } else {
+                this.lockLevel(level);
             }
         });
     }
 
     loadProgress() {
-        return JSON.parse(localStorage.getItem('pictostoryProgress')) || {};
+        return JSON.parse(localStorage.getItem('pictostoryProgress')) || {
+            level1: 0,
+            level2: 0,
+            level3: 0
+        };
     }
 
-    unlockLevel(levelElement) {
+    unlockLevel(levelElement, levelNum) {
         levelElement.classList.remove('locked');
-        levelElement.querySelector('.lock').style.display = 'none';
-        
-        // Add correct href based on level number
-        const levelNum = levelElement.dataset.level;
-        levelElement.onclick = () => window.location.href = `../kls${levelNum}/kls${levelNum}.html`;
+        const lockIcon = levelElement.querySelector('.lock');
+        if (lockIcon) {
+            lockIcon.innerHTML = '🔓';
+            lockIcon.classList.add('unlocked');
+            // Add unlock animation class
+            lockIcon.classList.add('unlock-animation');
+        }
+        levelElement.onclick = () => this.navigateToLevel(levelNum);
     }
 
-    handleLevelClick(levelNum) {
-        const progress = this.loadProgress();
-        if (progress[`level${levelNum-1}`] >= 2) {
-            window.location.href = `../kls${levelNum}/kls${levelNum}.html`;
-        } else {
-            alert('🔒 Level ini masih terkunci!\n\nSelesaikan level sebelumnya dengan minimal 2 jawaban benar untuk membuka level ini.');
+    lockLevel(levelElement) {
+        levelElement.classList.add('locked');
+        const lockIcon = levelElement.querySelector('.lock');
+        if (lockIcon) {
+            lockIcon.innerHTML = '🔒';
+            lockIcon.classList.remove('unlocked', 'unlock-animation');
         }
+        // Prevent navigation for locked levels
+        levelElement.onclick = () => alert('Selesaikan kelas sebelumnya terlebih dahulu!');
+    }
+
+    static completeLevel(levelNum, score) {
+        const progress = JSON.parse(localStorage.getItem('pictostoryProgress')) || {};
+        progress[`level${levelNum}`] = score;
+        localStorage.setItem('pictostoryProgress', JSON.stringify(progress));
+        
+        const message = score > 0 
+            ? `Selamat! Kamu telah menyelesaikan Kelas ${levelNum} dan membuka Kelas ${levelNum + 1}!`
+            : `Kelas ${levelNum} selesai, tapi coba lagi untuk membuka kelas selanjutnya!`;
+        alert(message);
+    }
+
+    navigateToLevel(levelNum) {
+        window.location.href = `../kelas${levelNum}/kelas${levelNum}.html`;
     }
 }
 
-// Check if this is a new session
-const isNewSession = !sessionStorage.getItem('gameSession');
-
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new LevelSystem();
-
-    const kelas2Element = document.getElementById('kelas2');
-    const kelas3Element = document.getElementById('kelas3');
-
-    // Reset progress if it's a new session
-    if (isNewSession) {
-        localStorage.removeItem('kelas2Unlocked');
-        localStorage.removeItem('kelas3Unlocked');
-        sessionStorage.setItem('gameSession', 'active');
-    }
-
-    // Check if levels are unlocked
-    const isKelas2Unlocked = localStorage.getItem('kelas2Unlocked') === 'true';
-    const isKelas3Unlocked = localStorage.getItem('kelas3Unlocked') === 'true';
-
-    // Handle Kelas 2
-    if (isKelas2Unlocked) {
-        unlockLevel(kelas2Element, '../kelas2/kelas2.html');
-    } else {
-        lockLevel(kelas2Element);
-    }
-
-    // Handle Kelas 3
-    if (isKelas3Unlocked) {
-        unlockLevel(kelas3Element, '../kelas3/kelas3.html');
-    } else {
-        lockLevel(kelas3Element);
-    }
-});
-
-// Helper functions
-function unlockLevel(element, href) {
-    element.classList.remove('locked');
-    element.querySelector('.lock').style.display = 'none';
-    element.onclick = () => window.location.href = href;
-    element.classList.add('unlocked-animation');
-}
-
-function lockLevel(element) {
-    element.classList.add('locked');
-    element.querySelector('.lock').style.display = 'block';
-    element.onclick = null;
-}
-
-// Clear session when window closes
-window.addEventListener('beforeunload', () => {
-    sessionStorage.removeItem('gameSession');
 });

@@ -2,11 +2,11 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: url('../assets/img/kelas.png') no-repeat center center fixed;
-    background: linear-gradient(45deg, #FFE5E5, #E5F3FF, #E5FFE5);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    background: url('../assets/img/jalan.png') no-repeat center center fixed;
     font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;           /* Tambahan */
+    justify-content: center; /* Tambahan */
+    align-items: center;     /* Tambahan */
 }
 
 @keyframes gradientBG {
@@ -16,10 +16,15 @@ body {
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #FFE5E5, #E5F3FF, #E5FFE5);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    max-width: 1100px;
+    margin: 20px;           /* Ubah dari margin: 0 auto */
+    padding: 40px;          /* Tambah padding */
     text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Tambahan untuk efek lebih baik */
 }
 
 .title {

@@ -11,26 +11,26 @@
         <h1 class="title">LEVEL GAME</h1>
         <div class="levels-grid">
             <!-- Level 1 (Always unlocked) -->
-            <div class="level-item" onclick="window.location.href='../kelas1/kelas1.html'">
+            <div class="level-item" onclick="handleLevelClick(1)" id="kelas1">
                 <img src="../assets/img/naikKelas.png" alt="Kelas 1">
                 <div class="level-label">KELAS 1</div>
             </div>
 
             <!-- Level 2 (Initially locked) -->
-            <div class="level-item locked" data-level="2" id="kelas2">
+            <div class="level-item locked" data-level="2" id="kelas2" onclick="handleLevelClick(2)">
                 <img src="../assets/img/naikKelas.png" alt="Kelas 2">
                 <div class="level-label">KELAS 2</div>
                 <div class="lock">🔒</div>
             </div>
 
             <!-- Level 3 (Initially locked) -->
-            <div class="level-item locked" data-level="3" id="kelas3">
+            <div class="level-item locked" data-level="3" id="kelas3" onclick="handleLevelClick(3)">
                 <img src="../assets/img/naikKelas.png" alt="Kelas 3">
                 <div class="level-label">KELAS 3</div>
                 <div class="lock">🔒</div>
             </div>
         </div>
-        <button class="back-btn" onclick="window.location.href='../tampilanMenu/tampilanMenu.html'">Kembali ke Menu</button>
+        <button class="back-btn" onclick="window.location.href='../pilihan/pilihan.html'">Kembali ke Menu</button>
     </div>
     <script src="kelas.js"></script>
 </body>
