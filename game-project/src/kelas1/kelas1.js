@@ -11,6 +11,11 @@ class QuizGame {
                 image: '../assets/img/pict18.png',
                 correctAnswer: 'membaca',
                 options: ['berenang', 'membaca']
+            },
+            {
+                image: '../assets/img/berlari.png',
+                correctAnswer: 'berlari',
+                options: ['berlari', 'membaca']
             }
         ];
         this.correctAnswers = 0;
@@ -23,6 +28,7 @@ class QuizGame {
         this.scoreOverlay = document.getElementById('scoreOverlay');
         this.star1 = document.getElementById('star1');
         this.star2 = document.getElementById('star2');
+        this.star3 = document.getElementById('star3');
         this.questionImage = document.getElementById('questionImage');
         this.setupLevel();
         this.setupEventListeners();
@@ -60,12 +66,13 @@ class QuizGame {
         
         setTimeout(() => {
             this.feedbackOverlay.style.display = 'none';
-            if (this.currentLevel === 1) {
-                this.currentLevel++;
+            this.currentLevel++;
+            if (this.currentLevel <= this.questions.length) {
                 this.setupLevel();
             } else {
                 this.showScore();
             }
+
         }, 2000);
     }
 
@@ -73,14 +80,19 @@ class QuizGame {
         this.scoreOverlay.style.display = 'flex';
         
         // Animate stars appearing
-        setTimeout(() => {
+                setTimeout(() => {
             if (this.correctAnswers >= 1) {
                 this.star1.style.opacity = '1';
             }
-            if (this.correctAnswers === 2) {
+            if (this.correctAnswers >= 2) {
                 setTimeout(() => {
                     this.star2.style.opacity = '1';
                 }, 300);
+            }
+            if (this.correctAnswers >= 3) {
+                setTimeout(() => {
+                    this.star3.style.opacity = '1';
+                }, 600); // delay-nya sedikit lebih lama biar muncul berurutan
             }
         }, 500);
 
@@ -88,18 +100,20 @@ class QuizGame {
         const scoreBackBtn = document.getElementById('scoreBackBtn');
 
         if (promoteBtn) {
-            promoteBtn.onclick = () => {
-                if (this.correctAnswers > 0) {
-                    localStorage.setItem('kelas2Unlocked', 'true');
-                    window.location.href = '../kelas2/kelas2.html';
-                } else {
-                    this.scoreOverlay.style.display = 'none';
-                    this.currentLevel = 1;
-                    this.correctAnswers = 0;
-                    this.setupLevel();
-                }
-            };
+        promoteBtn.onclick = () => {
+        if (this.correctAnswers >= 2) {
+            localStorage.setItem('kelas2Unlocked', 'true');
+            window.location.href = '../kelas2/kelas2.html';
+        } else {
+            alert('Jawaban benar kamu belum cukup untuk lanjut ke kelas 2.\nKamu butuh minimal 2 jawaban benar!');
+            this.scoreOverlay.style.display = 'none';
+            this.currentLevel = 1;
+            this.correctAnswers = 0;
+            this.setupLevel();
         }
+    };
+}
+
 
         if (scoreBackBtn) {
             scoreBackBtn.onclick = () => {

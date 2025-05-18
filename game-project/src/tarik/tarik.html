@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag and Match Game</title>
+  <link rel="stylesheet" href="tarik.css">
+</head>
+<body>
+  <h1>Lengkapilah Kalimat Tersebut dengan Gambar</h1>
+
+  <div class="stars">
+    <img src="../assets/img/stars1.png" class="star" id="star1">
+    <img src="../assets/img/stars1.png" class="star" id="star2">
+    <img src="../assets/img/stars1.png" class="star" id="star3">
+  </div>
+
+  <div class="game-container">
+    <div class="drag-container">
+      <img src="../assets/img/belajar.png" draggable="true" id="img1" class="draggable" alt="img1">
+      <img src="../assets/img/gosokgigi.png" draggable="true" id="img2" class="draggable" alt="img2">
+      <img src="../assets/img/pianika.png" draggable="true" id="img3" class="draggable" alt="imgr3">
+    </div>
+    <div class="drop-container">
+      <div class="drop-zone" data-correct="img1">ANDI BERMAIN MUSIK DENGAN ....</div>
+      <div class="drop-zone" data-correct="img2">SUPAYA PINTER ANDI ......</div>
+      <div class="drop-zone" data-correct="img3">SUPAYA GIGI BERSIH ANI....</div>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <div id="popup" class="popup">
+  <p><strong>✨ Hebat kamu telah menyelesaikannya! ✨</strong></p>
+  <div class="popup-stars">
+    <img src="../assets/img/stars1.png" id="popup-star1" class="popup-star">
+    <img src="../assets/img/stars1.png" id="popup-star2" class="popup-star">
+    <img src="../assets/img/stars1.png" id="popup-star3" class="popup-star">
+  </div>
+  <div class="popup-buttons">
+    <button onclick="location.reload()">KEMBALI</button>
+    <button onclick="alert('Naik kelas!')">NAIK KELAS</button>
+  </div>
+</div>
+
+
+  <script src="tarik.js"></script>
+</body>
+</html>
