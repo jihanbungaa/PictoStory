@@ -115,7 +115,7 @@ class QuizGame {
         promoteBtn.onclick = () => {
         if (this.correctAnswers >= 2) {
             localStorage.setItem('kelas2Unlocked', 'true');
-            window.location.href = '../kelas2/kelas2.html';
+            
         } else {
             alert('Jawaban benar kamu belum cukup untuk lanjut ke kelas 2.\nKamu butuh minimal 2 jawaban benar!');
             this.scoreOverlay.style.display = 'none';
