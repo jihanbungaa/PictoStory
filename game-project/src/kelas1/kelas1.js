@@ -89,18 +89,21 @@ class QuizGame {
 
     showScore() {
         this.scoreOverlay.style.display = 'flex';
-
-        setTimeout(() => {
+        
+        // Animate stars appearing
+                setTimeout(() => {
             if (this.correctAnswers >= 1) {
                 this.star1.style.opacity = '1';
             }
             if (this.correctAnswers >= 2) {
-                LevelSystem.completeLevel(1, this.correctAnswers); // ← update progress
+                setTimeout(() => {
+                    this.star2.style.opacity = '1';
+                }, 300);
             }
             if (this.correctAnswers >= 3) {
                 setTimeout(() => {
                     this.star3.style.opacity = '1';
-                }, 600);
+                }, 600); // delay-nya sedikit lebih lama biar muncul berurutan
             }
         }, 500);
 
