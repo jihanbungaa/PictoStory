@@ -79,50 +79,38 @@ class QuizGame {
     showScore() {
         this.scoreOverlay.style.display = 'flex';
         
-        // Animate stars appearing
-                setTimeout(() => {
+        setTimeout(() => {
             if (this.correctAnswers >= 1) {
                 this.star1.style.opacity = '1';
             }
             if (this.correctAnswers >= 2) {
                 setTimeout(() => {
                     this.star2.style.opacity = '1';
+                    // Simpan progress ke localStorage
+                    localStorage.setItem('currentLevel', '3');
+                    localStorage.setItem('highestLevel', Math.max(3, parseInt(localStorage.getItem('highestLevel') || 1)));
                 }, 300);
             }
             if (this.correctAnswers >= 3) {
                 setTimeout(() => {
                     this.star3.style.opacity = '1';
-                }, 600); // delay-nya sedikit lebih lama biar muncul berurutan
+                }, 600);
             }
         }, 500);
 
+        // Update tombol promote
         const promoteBtn = document.getElementById('promoteBtn');
-        const scoreBackBtn = document.getElementById('scoreBackBtn');
-
         if (promoteBtn) {
-        promoteBtn.onclick = () => {
-        if (this.correctAnswers >= 2) {
-            localStorage.setItem('kelas3Unlocked', 'true');
-            window.location.href = '../kelas3/kelas3.html';
-        } else {
-            alert('Jawaban benar kamu belum cukup untuk lanjut ke kelas 2.\nKamu butuh minimal 2 jawaban benar!');
-            this.scoreOverlay.style.display = 'none';
-            this.currentLevel = 1;
-            this.correctAnswers = 0;
-            this.setupLevel();
-        }
-    };
-}
-
-
-        if (scoreBackBtn) {
-            scoreBackBtn.onclick = () => {
-                window.location.href = '../kelas2/kelas2.html';
+            promoteBtn.onclick = () => {
+                if (this.correctAnswers >= 2) {
+                    localStorage.setItem('currentLevel', '3');
+                    window.location.href = '../kelas3/kelas3.html';
+                } else {
+                    alert('Jawaban benar kamu belum cukup untuk lanjut ke kelas 3.\nKamu butuh minimal 2 jawaban benar!');
+                }
             };
         }
     }
-
-    
 
     setupEventListeners() {
         const backBtn = document.getElementById('backBtn');
@@ -131,6 +119,14 @@ class QuizGame {
                 window.location.href = '../tampilankelas/kelas.html';
             });
         }
+        document.querySelector('.back-button').addEventListener('click', function() {
+    // Pastikan progress tersimpan sebelum kembali
+    const progress = JSON.parse(localStorage.getItem('pictostoryProgress')) || {};
+    if (progress['level1'] > 0) {
+        LevelSystem.completeLevel(1, progress['level1']);
+    }
+    window.location.href = '../tampilankelas/kelas.html';
+});
     }
 }
 

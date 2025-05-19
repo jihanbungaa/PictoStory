@@ -9,8 +9,8 @@ class QuizGame {
             },
             {
                 image: '../assets/img/pict18.png',
-                correctAnswer: 'membaca',
-                options: ['berenang', 'membaca']
+                correctAnswer: 'menggambar',
+                options: ['berenang', 'menggambar']
             },
             {
                 image: '../assets/img/berlari.png',
@@ -32,15 +32,26 @@ class QuizGame {
         this.questionImage = document.getElementById('questionImage');
         this.setupLevel();
         this.setupEventListeners();
+        const currentLevel = parseInt(localStorage.getItem('currentLevel')) || 1;
+        this.levels.forEach((level, index) => {
+            const levelNum = index + 1;
+
+            if (levelNum === 1 || levelNum <= currentLevel) {
+                this.unlockLevel(level, levelNum);
+            } else {
+                this.lockLevel(level);
+            }
+        });
+
     }
 
     setupLevel() {
         const question = this.questions[this.currentLevel - 1];
         this.questionImage.src = question.image;
-        
+
         const optionsContainer = document.querySelector('.options-container');
         optionsContainer.innerHTML = '';
-        
+
         question.options.forEach(option => {
             const button = document.createElement('button');
             button.classList.add('option-btn');
@@ -52,7 +63,7 @@ class QuizGame {
 
     checkAnswer(answer) {
         const correct = answer === this.questions[this.currentLevel - 1].correctAnswer;
-        
+
         if (correct) {
             this.correctAnswers++;
         }
@@ -63,7 +74,7 @@ class QuizGame {
     showFeedback(isCorrect) {
         this.feedbackImage.src = isCorrect ? '../assets/img/benar.png' : '../assets/img/salah.png';
         this.feedbackOverlay.style.display = 'flex';
-        
+
         setTimeout(() => {
             this.feedbackOverlay.style.display = 'none';
             this.currentLevel++;
@@ -78,21 +89,18 @@ class QuizGame {
 
     showScore() {
         this.scoreOverlay.style.display = 'flex';
-        
-        // Animate stars appearing
-                setTimeout(() => {
+
+        setTimeout(() => {
             if (this.correctAnswers >= 1) {
                 this.star1.style.opacity = '1';
             }
             if (this.correctAnswers >= 2) {
-                setTimeout(() => {
-                    this.star2.style.opacity = '1';
-                }, 300);
+                LevelSystem.completeLevel(1, this.correctAnswers); // ← update progress
             }
             if (this.correctAnswers >= 3) {
                 setTimeout(() => {
                     this.star3.style.opacity = '1';
-                }, 600); // delay-nya sedikit lebih lama biar muncul berurutan
+                }, 600);
             }
         }, 500);
 
@@ -100,20 +108,18 @@ class QuizGame {
         const scoreBackBtn = document.getElementById('scoreBackBtn');
 
         if (promoteBtn) {
-        promoteBtn.onclick = () => {
-        if (this.correctAnswers >= 2) {
-            localStorage.setItem('kelas2Unlocked', 'true');
-            window.location.href = '../kelas2/kelas2.html';
-        } else {
-            alert('Jawaban benar kamu belum cukup untuk lanjut ke kelas 2.\nKamu butuh minimal 2 jawaban benar!');
-            this.scoreOverlay.style.display = 'none';
-            this.currentLevel = 1;
-            this.correctAnswers = 0;
-            this.setupLevel();
+            promoteBtn.onclick = () => {
+                if (this.correctAnswers >= 2) {
+                    window.location.href = '../kelas2/kelas2.html';
+                } else {
+                    alert('Jawaban benar kamu belum cukup untuk lanjut ke kelas 2.\nKamu butuh minimal 2 jawaban benar!');
+                    this.scoreOverlay.style.display = 'none';
+                    this.currentLevel = 1;
+                    this.correctAnswers = 0;
+                    this.setupLevel();
+                }
+            };
         }
-    };
-}
-
 
         if (scoreBackBtn) {
             scoreBackBtn.onclick = () => {
@@ -122,8 +128,6 @@ class QuizGame {
         }
     }
 
-    
-
     setupEventListeners() {
         const backBtn = document.getElementById('backBtn');
         if (backBtn) {
@@ -131,9 +135,20 @@ class QuizGame {
                 window.location.href = '../tampilankelas/kelas.html';
             });
         }
+
+        document.querySelector('.back-button').addEventListener('click', () => {
+            // Save current progress before going back
+            if (this.correctAnswers >= 2) {
+                LevelSystem.completeLevel(1, this.correctAnswers);
+            }
+            window.location.href = '../tampilankelas/kelas.html';
+        });
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     new QuizGame();
 });
+
+// Misal di kelas1.js, setelah user menyelesaikan kelas 1
+LevelSystem.completeLevel(1, 1); // 1 = skor, bisa diganti sesuai kebutuhan

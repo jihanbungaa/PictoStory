@@ -143,6 +143,14 @@ class QuizGame {
                 window.location.href = '../tampilankelas/kelas.html';
             });
         }
+        document.querySelector('.back-button').addEventListener('click', function() {
+    // Pastikan progress tersimpan sebelum kembali
+    const progress = JSON.parse(localStorage.getItem('pictostoryProgress')) || {};
+    if (progress['level1'] > 0) {
+        LevelSystem.completeLevel(1, progress['level1']);
+    }
+    window.location.href = '../tampilankelas/kelas.html';
+});
     }
 }
 
