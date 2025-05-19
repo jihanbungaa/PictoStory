@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilihan Game</title>
+    <link rel="stylesheet" href="pilmatch.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">LEVEL GAME</h1>
+        
+        <div class="games-container">
+            <div class="game-card" onclick="window.location.href='../match/match.html'">
+                <img src="../assets/img/mix.jpg" alt="mix" class="game-icon">
+                <h2 class="game-title">Campur</h2>
+            </div>
+
+            <div class="game-card" onclick="window.location.href='../match2/match2.html'">
+                <img src="../assets/img/profesi.jpg" alt="profesi" class="game-icon">
+                <h2 class="game-title">Profesi</h2>
+            </div>
+
+        </div>
+
+         <audio id="backsound" src="../assets/sound/1.mp3" autoplay loop></audio>
+
+        <button class="back-button" data-href="../pilihan/pilihan.html">
+            Kembali ke Menu
+        </button>
+    </div>
+    <script src="pilmatch.js"></script>
+</body>
+</html>

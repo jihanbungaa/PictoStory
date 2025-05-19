@@ -9,8 +9,8 @@ class QuizGame {
             },
             {
                 image: '../assets/img/pict18.png',
-                correctAnswer: 'membaca',
-                options: ['berenang', 'membaca']
+                correctAnswer: 'menggambar',
+                options: ['berenang', 'menggambar']
             },
             {
                 image: '../assets/img/berlari.png',

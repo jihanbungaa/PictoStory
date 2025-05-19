@@ -13,9 +13,9 @@ class QuizGame {
                 options: ['bermain handphone', 'menonton tv', 'tidur']
             },
             {
-                image: '../assets/img/hp.png',
-                correctAnswer: 'bermain handphone',
-                options: ['bermain handphone', 'tidur', 'menonton tv']
+                image: '../assets/img/belajar.png',
+                correctAnswer: 'belajar',
+                options: ['belajar', 'tidur', 'menonton tv']
             }
         ];
         this.correctAnswers = 0;

@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         backButton.addEventListener('click', () => {
             const href = backButton.dataset.href;
             if (href) {
-                window.location.href = "../tampilanMenu/tampilanMenu.html";
+                window.location.href = "../pilihan/pilihan.html";
             }
         });
     }
