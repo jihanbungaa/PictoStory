@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Drag & Drop Edukasi</title>
+  <link rel="stylesheet" href="match2.css">
+</head>
+<body>
+  <div class="stars">
+    <img src="../assets/img/stars1.png" class="star" id="star1">
+    <img src="../assets/img/stars1.png" class="star" id="star2">
+    <img src="../assets/img/stars1.png" class="star" id="star3">
+  </div>
+
+  <div class="question" id="questionBox">
+    <h1>Cocokan gambar yang tepat</h1>
+  </div>
+  <div class="grid">
+    <!-- Draggable items -->
+    <div class="draggable" draggable="true" id="guru" data-match="guru"><img src="../assets/img/guru.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="nelayan" data-match="nelayan"><img src="../assets/img/nelayan.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="petani" data-match="petani"><img src="../assets/img/petani.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="dokter" data-match="dokter"><img src="../assets/img/dokter.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="tentara" data-match="tentara"><img src="../assets/img/tentara.jpg" width="100" height="100"></div>
+    <div class="draggable" draggable="true" id="polisi" data-match="polisi"><img src="../assets/img/polisi.jpg" width="100" height="100"></div>
+
+    <!-- Drop zones -->
+    <div class="dropzone" data-answer="dokter">dokter</div>
+    <div class="dropzone" data-answer="nelayan">Kucing</div>
+    <div class="dropzone" data-answer="petani">petani</div>
+    <div class="dropzone" data-answer="polisi">polisi</div>
+    <div class="dropzone" data-answer="tentara">tentara</div>
+    <div class="dropzone" data-answer="guru">guru</div>
+  </div>
+   
+  <div class="button-container"> 
+    <button onclick="window.location.href='../pilihan/pilihan.html'" class="back-btn">KEMBALI</button>
+  </div>
+  
+  <div class="popup" id="popup">
+    <h2>✨ Hebat kamu telah menyelesaikannya! ✨</h2>
+    <div class="button-group">
+        <button onclick="window.location.href='../pilihan/pilihan.html'" class="back-btn">KEMBALI</button>
+      <button onclick="location.reload()">ULANG</button>
+    </div>
+  </div>
+
+  <script src="match2.js"></script>
+</body>
+</html>

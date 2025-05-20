@@ -24,12 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 🔙 Tombol kembali
+    
     const backButton = document.querySelector('.back-button');
     if (backButton) {
         backButton.addEventListener('click', () => {
             const href = backButton.dataset.href;
             if (href) {
-                window.location.href = "../tampilanMenu/tampilanMenu.html";
+                window.location.href = "../pilihan/pilihan.html";
             }
         });
     }
