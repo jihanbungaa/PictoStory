@@ -5,13 +5,17 @@
 }
 
 body {
-    background: url('../assets/img/rmain.png') no-repeat center center fixed;
-    background-size: cover;
-    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
+    background: #7FD1D7;
+    background-image: url('../assets/img/menu-bg.png');
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Arial, sans-serif;
 }
 
 .container {

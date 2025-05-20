@@ -134,12 +134,12 @@ class PuzzleGame {
         this.checkBtn.addEventListener('click', () => this.checkSolution());
         this.nextBtn.addEventListener('click', () => this.nextLevel());
         this.backBtn.addEventListener('click', () => {
-            window.location.href = '../tampilanMenu/tampilanMenu.html';
+            window.location.href = '../pilihan/pilihan.html';
         });
 
         this.promoteBtn.addEventListener('click', () => {
             alert('🎉 SELAMAT! Kamu telah menyelesaikan semua level! 🌟');
-            window.location.href = '../tampilanMenu/tampilanMenu.html';
+            window.location.href = '../pilihan/pilihan.html';
         });
     }
 
@@ -238,7 +238,7 @@ class PuzzleGame {
             font-family: 'Comic Sans MS', cursive, sans-serif;
         `;
         backBtn.onclick = () => {
-            document.location.href = '../tampilanMenu/tampilanMenu.html';
+            document.location.href = '../pilihan/pilihan.html';
         };
         scoreTable.appendChild(backBtn);
     }

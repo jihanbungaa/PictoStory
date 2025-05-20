@@ -101,7 +101,7 @@ class PuzzleGame {
         this.checkBtn.addEventListener('click', () => this.checkSolution());
         this.nextBtn.addEventListener('click', () => this.nextLevel());
         this.backBtn.addEventListener('click', () => {
-            window.location.href = '../tampilanMenu/tampilanMenu.html';
+            window.location.href = '../pilihan/pilihan.html';
         });
 
         // Add score popup button listeners - fix button initialization
@@ -110,7 +110,7 @@ class PuzzleGame {
 
         if (scoreBackBtn) {
             scoreBackBtn.addEventListener('click', () => {
-                window.location.href = '../tampilanMenu/tampilanMenu.html';
+                window.location.href = '../pilihan/pilihan.html';
             });
         }
 
@@ -141,7 +141,7 @@ class PuzzleGame {
                     this.setupLevel();
                 }
             }
-        }, 1000);
+        }, 100);
     }
 
     showScore() {
@@ -170,7 +170,7 @@ class PuzzleGame {
         
         if (scoreBackBtn) {
             scoreBackBtn.addEventListener('click', () => {
-                window.location.href = '../tampilanMenu/tampilanMenu.html';
+                window.location.href = '../pilihan/pilihan.html';
             });
         }
         
