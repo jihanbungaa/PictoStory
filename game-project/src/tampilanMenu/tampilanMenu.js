@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   rstButton.addEventListener('click', () => {
     localStorage.clear(); // or any reset logic
-    alert("Progress berhasil direset!");
+    alert("Berhasil Di Reset!");
   });
 
   // Optional: Tambahkan efek suara jika diinginkan

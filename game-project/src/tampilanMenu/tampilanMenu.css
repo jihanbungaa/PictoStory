@@ -1,53 +1,62 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
-  background-image: url('../../src/assets/img/TampilanUtamaPS.png');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../src/assets/img/TampilanUtamaPS.png');
+    background-size: cover;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-  text-align: center;
-}
-
-.title h1 {
-  font-size: 64px;
-  color: #F4A300;
-  text-shadow: 2px 2px #A05700;
-}
-
-.title h2 {
-  font-size: 28px;
-  color: #F26C20;
-  margin-bottom: 40px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .menu-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    position: absolute;
+    top: 55%; /* Adjust this value to position buttons below the title */
+    transform: translateY(-50%);
 }
 
-/* Optional fallback if image fails to load or you switch to text button */
 .button {
-  width: 280px;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+    width: 280px;
+    height: 60px; /* Fixed height for consistent button size */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    background: #FFB400;
+    color: white;
+    font-size: 1.5em;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-shadow: 2px 2px 0 #8B4513;
+    box-shadow: 0 4px 0 #8B4513;
 }
 
 .button:hover {
-  transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 #8B4513;
 }
+
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #8B4513;
+}
+
