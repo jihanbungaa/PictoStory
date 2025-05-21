@@ -33,7 +33,7 @@ body {
     position: absolute;
     bottom: 8%; /* Position from bottom instead of top */
     width: max-content;
-    padding: 20px;
+    padding: 10px;
     animation: float 3s ease-in-out infinite; /* Add floating animation */
 }
 
@@ -79,4 +79,20 @@ body {
     100% {
         transform: translateY(0);
     }
+}
+
+.reset-button-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+}
+
+.reset-button-container .button {
+    width: 200px; /* Smaller size for reset button */
+    height: 50px;
+}
+
+.reset-button-container .button:hover {
+    transform: translateY(-2px) scale(1.05);
 }
