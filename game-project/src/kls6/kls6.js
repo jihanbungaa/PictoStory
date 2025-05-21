@@ -157,7 +157,7 @@ class PuzzleGame {
                 this.nextLevel();
             } else if (this.currentLevel === 2) {
                 if (isCorrect) {
-                    localStorage.setItem('kelas5Unlocked', 'true');
+                    localStorage.setItem('kelas6Unlocked', 'true');
                     this.showScore();
                 } else {
                     this.setupLevel();
