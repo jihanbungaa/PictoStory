@@ -2,8 +2,8 @@ class PuzzleGame {
     constructor() {
         this.currentLevel = 1;
         this.stories = [
-             "4 anak perempuan sedang belajar bersama. \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar!",
-            "Rio yang sedang sedih \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar",     
+            "4 anak perempuan sedang belajar bersama. \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar!",
+            "Rio yang sedang sedih \n\nSusun puzzle dengan potongan yang benar untuk melengkapi gambar",
         ];
         this.feedbackOverlay = document.getElementById('feedbackOverlay');
         this.feedbackImage = document.getElementById('feedbackImage');
@@ -11,7 +11,7 @@ class PuzzleGame {
         this.star1 = document.getElementById('star1');
         this.star2 = document.getElementById('star2');
         this.correctAnswers = 0;
-        
+
         this.init();
     }
 
@@ -19,14 +19,14 @@ class PuzzleGame {
         this.storyBoard = document.getElementById('storyBoard');
         this.sourcePieces = document.getElementById('sourcePieces');
         this.targetBoard = document.getElementById('targetBoard');
-        this.checkBtn = document.getElementById('checkBtn');     
+        this.checkBtn = document.getElementById('checkBtn');
         this.backBtn = document.getElementById('backBtn');
         this.nextBtn = document.getElementById('nextBtn');
         this.setupLevel();
         this.setupEventListeners();
     }
 
-     setupLevel() {
+    setupLevel() {
         const storyText = this.storyBoard.querySelector('.story-text');
         storyText.textContent = this.stories[this.currentLevel - 1];
 
@@ -46,7 +46,7 @@ class PuzzleGame {
         // Create puzzle pieces array with both correct and incorrect pieces
         const correctPieces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         const incorrectPieces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        
+
         // Combine correct and incorrect pieces
         let allPieces = [];
         correctPieces.forEach(num => {
@@ -69,12 +69,12 @@ class PuzzleGame {
         allPieces.forEach(piece => {
             const pieceElement = document.createElement('img');
             if (this.currentLevel === 1) {
-                pieceElement.src = piece.isCorrect ? 
-                    `../assets/img/pict8_${piece.number}.png` : 
+                pieceElement.src = piece.isCorrect ?
+                    `../assets/img/pict8_${piece.number}.png` :
                     `../assets/img/puzzle_piece_${piece.number}.png`;
             } else {
-                pieceElement.src = piece.isCorrect ? 
-                    `../assets/img/pict7_${piece.number}.png` : 
+                pieceElement.src = piece.isCorrect ?
+                    `../assets/img/pict7_${piece.number}.png` :
                     `../assets/img/pict13_${piece.number}.png`;
             }
             pieceElement.classList.add('puzzle-piece');
@@ -124,41 +124,41 @@ class PuzzleGame {
         this.checkBtn.addEventListener('click', () => this.checkSolution());
         this.nextBtn.addEventListener('click', () => this.nextLevel());
         this.backBtn.addEventListener('click', () => {
-            window.location.href = '../tampilanMenu/tampilanMenu.html';
+            window.location.href = '../pilihan/pilihan.html';
         });
 
         this.promoteBtn.addEventListener('click', () => {
             alert('🎉 SELAMAT! Kamu telah menyelesaikan semua level! 🌟');
-            window.location.href = '../tampilanMenu/tampilanMenu.html';
+            window.location.href = '../pilihan/pilihan.html';
         });
     }
 
     showFeedback(isCorrect) {
         this.feedbackImage.src = isCorrect ? '../assets/img/benar.png' : '../assets/img/salah.png';
         this.feedbackOverlay.style.display = 'flex';
-        
+
         if (isCorrect) {
             this.correctAnswers++;
         }
-        
+
         setTimeout(() => {
             this.feedbackOverlay.style.display = 'none';
             if (this.currentLevel === 1) {
                 this.nextLevel();
             } else if (this.currentLevel === 2) {
                 if (isCorrect) {
-                    localStorage.setItem('kelas5Unlocked', 'true');
+                    localStorage.setItem('kelas4Unlocked', 'true');
                     this.showScore();
                 } else {
                     this.setupLevel();
                 }
             }
-        }, 2000);
+        }, 500);
     }
 
     showScore() {
         this.scoreOverlay.style.display = 'flex';
-        
+
         setTimeout(() => {
             if (this.correctAnswers >= 1) {
                 this.star1.style.opacity = '1';
@@ -174,9 +174,9 @@ class PuzzleGame {
         if (promoteBtn) {
             const newPromoteBtn = promoteBtn.cloneNode(true);
             promoteBtn.parentNode.replaceChild(newPromoteBtn, promoteBtn);
-            
+
             newPromoteBtn.textContent = this.correctAnswers > 0 ? 'NAIK KELAS' : 'ULANG';
-            
+
             newPromoteBtn.onclick = () => {
                 if (this.correctAnswers > 0) {
                     localStorage.setItem('kelas5Unlocked', 'true');
@@ -194,9 +194,9 @@ class PuzzleGame {
         if (scoreBackBtn) {
             const newBackBtn = scoreBackBtn.cloneNode(true);
             scoreBackBtn.parentNode.replaceChild(newBackBtn, scoreBackBtn);
-            
+
             newBackBtn.onclick = () => {
-                document.location.href = '../tampilanMenu/tampilanMenu.html';
+                document.location.href = '../pilihan/pilihan.html';
             };
         }
     }
@@ -206,7 +206,7 @@ class PuzzleGame {
         let correct = true;
 
         dropZones.forEach((zone, index) => {
-            if (!zone.children[0] || 
+            if (!zone.children[0] ||
                 parseInt(zone.children[0].getAttribute('data-piece')) !== index + 1 ||
                 zone.children[0].getAttribute('data-correct') !== 'true') {
                 correct = false;

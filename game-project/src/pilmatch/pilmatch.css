@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: url('../assets/img/jalan.png') no-repeat center center fixed;
+    background: url('../assets/img/koridor.png') no-repeat center center fixed;
     font-family: 'Comic Sans MS', cursive, sans-serif;
     display: flex;           /* Tambahan */
     justify-content: center; /* Tambahan */

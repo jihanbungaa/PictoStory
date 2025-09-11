@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('../assets/img/jalan.png') no-repeat center center fixed; /* Changed background */
+    background-size: cover;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.title {
+    font-size: 4em;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 30px 0;
+}
+
+.level-item {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.level-item img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.level-label {
+    font-size: 1.8em;
+    color: #8B4513;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.locked {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.level-item.locked .lock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: #666;
+}
+
+.level-item:not(.locked):hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+}
+
+.back-btn {
+    background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    margin-top: 30px;
+}
+
+.back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+}
+
+.back-btn:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+    .levels-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .title {
+        font-size: 3em;
+    }
+    
+    .level-label {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .levels-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .title {
+        font-size: 2.5em;
+    }
+}

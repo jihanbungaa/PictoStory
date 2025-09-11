@@ -34,15 +34,14 @@ body {
   width: 90%;
   max-width: 800px;
   min-height: 100px;
-  margin: 40px 0;
+  margin: 40px auto; /* Changed to auto for horizontal centering */
   border: 5px solid #fff;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   transition: transform 0.3s;
-}
-
-.question:hover {
-  transform: translateY(-5px);
+  display: flex; /* Added flex display */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
 .question h2 {
@@ -51,6 +50,11 @@ body {
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   padding: 20px;
+  margin: 0; /* Remove default margin */
+}
+
+.question:hover {
+  transform: translateY(-5px);
 }
 
 .grid {

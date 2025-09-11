@@ -192,7 +192,7 @@ class PuzzleGame {
             scoreBackBtn.parentNode.replaceChild(newBackBtn, scoreBackBtn);
             
             newBackBtn.onclick = () => {
-                document.location.href = '../tampilanMenu/tampilanMenu.html';
+                document.location.href = '../pilihan/pilihan.html';
             };
         }
     }

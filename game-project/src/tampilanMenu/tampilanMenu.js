@@ -1,58 +1,81 @@
-document.addEventListener('DOMContentLoaded', () => { 
-    // Tambahin backsound di sini
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize audio with error handling
+    let backsoundPlayed = false;
     const backsound = new Audio('../assets/sound/backsound.mp3');
     backsound.loop = true;
-    backsound.volume = 0.5; // volume bisa diatur 0.0 - 1.0
-    backsound.play();
+    backsound.volume = 0.5;
 
+    // Initialize buttons with error checking
     const startButton = document.getElementById('start-btn');
     const htpButton = document.getElementById('htp-btn');
+    const rstButton = document.getElementById('rst-btn');
 
+    // Verify all buttons exist
+    if (!startButton || !htpButton || !rstButton) {
+        console.error('Some buttons could not be found');
+        return;
+    }
+
+    // Button click handlers with navigation checks
     startButton.addEventListener('click', () => {
-        window.location.href = '../pilihan/pilihan.html';
+        try {
+            window.location.href = '../pilihan/pilihan.html';
+        } catch (err) {
+            console.error('Navigation error:', err);
+        }
     });
 
     htpButton.addEventListener('click', () => {
-        window.location.href = '../penjelasan/penjelasan.html';
+        try {
+            window.location.href = '../penjelasan/penjelasan.html';
+        } catch (err) {
+            console.error('Navigation error:', err);
+        }
     });
 
-    // Optional: Add button sound effects
+    rstButton.addEventListener('click', () => {
+        try {
+            localStorage.clear();
+            alert("Berhasil Di Reset!");
+        } catch (err) {
+            console.error('Reset error:', err);
+            alert("Gagal melakukan reset!");
+        }
+    });
+
+    // Add sound effects to all buttons with proper resource management
     const buttons = document.querySelectorAll('.button');
+    const audioCache = {
+        hover: new Audio('../assets/sound/hover.mp3'),
+        click: new Audio('../assets/sound/click.mp3')
+    };
+
     buttons.forEach(button => {
         button.addEventListener('mouseenter', () => {
-            // const hoverSound = new Audio('../assets/sound/hover.mp3');
-            // hoverSound.play();
+            audioCache.hover.currentTime = 0;
+            audioCache.hover.play().catch(err => console.error("Hover sound error:", err));
         });
 
         button.addEventListener('click', () => {
-            // const clickSound = new Audio('../assets/sound/click.mp3');
-            // clickSound.play();
+            audioCache.click.currentTime = 0;
+            audioCache.click.play().catch(err => console.error("Click sound error:", err));
         });
     });
 
-    const isKelas2Unlocked = localStorage.getItem('kelas2Unlocked') === 'true';
-    
-    const kelas2Button = document.querySelector('[data-kelas="2"]');
-    const lockIcon = kelas2Button.querySelector('.lock-icon');
-    
-    if (isKelas2Unlocked) {
-        if (lockIcon) lockIcon.style.display = 'none';
-        kelas2Button.classList.add('unlocked');
-        kelas2Button.disabled = false;
-    } else {
-        if (lockIcon) lockIcon.style.display = 'block';
-        kelas2Button.classList.add('locked');
-        kelas2Button.disabled = true;
-    }
+    // Play background music on first interaction
+    const playBackgroundMusic = () => {
+        if (!backsoundPlayed) {
+            backsound.play()
+                .then(() => {
+                    backsoundPlayed = true;
+                })
+                .catch((err) => {
+                    console.error("Background music error:", err);
+                });
+        }
+    };
 
-    // Dengerin klik pertama di mana aja di halaman
-document.body.addEventListener('click', () => {
-    if (!backsoundPlayed) {
-        backsound.play().catch((err) => {
-            console.log("Gagal play backsound:", err);
-        });
-        backsoundPlayed = true;
-    }
-}, { once: true }); // supaya cuma jalan sekali aja
-
+    // Add interaction listeners
+    document.body.addEventListener('click', playBackgroundMusic, { once: true });
+    document.body.addEventListener('keydown', playBackgroundMusic, { once: true });
 });
